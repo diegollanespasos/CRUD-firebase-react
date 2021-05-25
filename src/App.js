@@ -25,13 +25,13 @@ const App = () => {
   const showUsers = async () => {
     try {
       const snapshot = await db.collection('users').get();
-      const docs = [];
-      snapshot.forEach(doc =>{
+      const { docs } = snapshot;
+      const savedUsers = docs.map(doc => {
         const id = doc.id;
         const data = doc.data();
-        docs.push({id, ...data})
+        return { id, ...data}
       })
-      setUsers(docs);
+      setUsers(savedUsers);
       console.log(users);
     } catch(error){
       console.log(error);
